@@ -1,0 +1,43 @@
+<% const isEdit = typeof journal._id !== 'undefined'; %>
+<form class="needs-validation" action="<%= action %>" method="POST" novalidate>
+  <% if (method && method !== 'POST') { %>
+    <input type="hidden" name="_method" value="<%= method %>" />
+  <% } %>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label for="destination" class="form-label">Destination</label>
+      <input type="text" class="form-control" id="destination" name="destination" value="<%= journal.destination || '' %>" <%= isEdit ? 'readonly' : '' %> required minlength="2" />
+      <div class="form-text">Destination cannot be changed after creation.</div>
+      <div class="invalid-feedback">Destination is required.</div>
+    </div>
+    <div class="col-md-3">
+      <label for="arrivalDate" class="form-label">Arrival Date</label>
+      <input type="date" class="form-control" id="arrivalDate" name="arrivalDate" value="<%= journal.arrivalDate ? new Date(journal.arrivalDate).toISOString().slice(0, 10) : '' %>" required />
+      <div class="invalid-feedback">Choose an arrival date.</div>
+    </div>
+    <div class="col-md-3">
+      <label for="departureDate" class="form-label">Departure Date</label>
+      <input type="date" class="form-control" id="departureDate" name="departureDate" value="<%= journal.departureDate ? new Date(journal.departureDate).toISOString().slice(0, 10) : '' %>" required />
+      <div class="invalid-feedback">Choose a departure date.</div>
+    </div>
+    <div class="col-12">
+      <label for="experience" class="form-label">Experience</label>
+      <textarea class="form-control" id="experience" name="experience" rows="5" required minlength="10"><%= journal.experience || '' %></textarea>
+      <div class="invalid-feedback">Experience notes are required.</div>
+    </div>
+    <div class="col-md-4">
+      <label for="rating" class="form-label">Rating</label>
+      <select class="form-select" id="rating" name="rating" required>
+        <option value="" disabled <%= !journal.rating ? 'selected' : '' %>>Choose...</option>
+        <% ratings.forEach((option) => { %>
+          <option value="<%= option %>" <%= Number(journal.rating) === option ? 'selected' : '' %>><%= option %></option>
+        <% }) %>
+      </select>
+      <div class="invalid-feedback">Select a rating from 1 to 5.</div>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap gap-2 mt-4">
+    <button class="btn btn-primary" type="submit"><%= submitLabel %></button>
+    <a class="btn btn-outline-secondary" href="/journals">Cancel</a>
+  </div>
+</form>

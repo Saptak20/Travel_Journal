@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+<section class="row justify-content-center">
+  <div class="col-xl-10">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+          <div>
+            <h1 class="h3 mb-1"><%= journal.destination %></h1>
+            <p class="text-muted mb-0"><%= new Date(journal.arrivalDate).toLocaleDateString() %> - <%= new Date(journal.departureDate).toLocaleDateString() %></p>
+          </div>
+          <span class="badge text-bg-primary fs-6"><%= journal.rating %>/5</span>
+        </div>
+        <div class="journal-body mb-4"><%= journal.experience %></div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-4"><div class="journal-meta"><span class="meta-label">Traveler</span><span><%= journal.owner.username %></span></div></div>
+          <div class="col-md-4"><div class="journal-meta"><span class="meta-label">Travel style</span><span><%= journal.owner.travelStyle %></span></div></div>
+          <div class="col-md-4"><div class="journal-meta"><span class="meta-label">Favorite continent</span><span><%= journal.owner.favoriteContinent %></span></div></div>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-secondary" href="/journals">Back</a>
+          <a class="btn btn-primary" href="/journals/<%= journal._id %>/edit">Edit</a>
+          <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button class="btn btn-outline-danger" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

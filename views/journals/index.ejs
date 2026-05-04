@@ -1,0 +1,41 @@
+<%- include('../partials/head') %>
+<section class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1">My Travel Journals</h1>
+    <p class="text-muted mb-0">All of your logged trips in one place.</p>
+  </div>
+  <a class="btn btn-primary" href="/journal/new">New Journal</a>
+</section>
+
+<% if (!journals.length) { %>
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+      <p class="mb-0">No journals yet. Create your first trip entry to get started.</p>
+    </div>
+  </div>
+<% } else { %>
+  <div class="row g-4">
+    <% journals.forEach((journal) => { %>
+      <div class="col-md-6 col-xl-4">
+        <div class="card journal-card h-100 shadow-sm border-0">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+              <h2 class="h5 mb-0"><%= journal.destination %></h2>
+              <span class="badge text-bg-primary"><%= journal.rating %>/5</span>
+            </div>
+            <p class="small text-muted mb-2"><%= new Date(journal.arrivalDate).toLocaleDateString() %> - <%= new Date(journal.departureDate).toLocaleDateString() %></p>
+            <p class="journal-excerpt flex-grow-1"><%= journal.experience %></p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <a class="btn btn-outline-primary btn-sm" href="/journals/<%= journal._id %>">View</a>
+              <a class="btn btn-outline-secondary btn-sm" href="/journals/<%= journal._id %>/edit">Edit</a>
+              <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+<%- include('../partials/footer') %>

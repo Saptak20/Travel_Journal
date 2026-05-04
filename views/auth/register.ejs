@@ -1,0 +1,61 @@
+<%- include('../partials/head') %>
+<section class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <h1 class="h3 mb-3">Register</h1>
+        <p class="text-muted">Create your account to start logging trips.</p>
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <form class="needs-validation" action="/register" method="POST" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" value="<%= formData.username || '' %>" required minlength="3" />
+              <div class="invalid-feedback">Username is required.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required minlength="6" />
+              <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="nationality" class="form-label">Nationality</label>
+              <select class="form-select" id="nationality" name="nationality" required>
+                <option value="" disabled <%= !formData.nationality ? 'selected' : '' %>>Choose...</option>
+                <% nationalities.forEach((option) => { %>
+                  <option value="<%= option %>" <%= formData.nationality === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+              <div class="invalid-feedback">Select a nationality.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="travelStyle" class="form-label">Travel Style</label>
+              <select class="form-select" id="travelStyle" name="travelStyle" required>
+                <option value="" disabled <%= !formData.travelStyle ? 'selected' : '' %>>Choose...</option>
+                <% travelStyles.forEach((option) => { %>
+                  <option value="<%= option %>" <%= formData.travelStyle === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+              <div class="invalid-feedback">Select a travel style.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="favoriteContinent" class="form-label">Favorite Continent</label>
+              <select class="form-select" id="favoriteContinent" name="favoriteContinent" required>
+                <option value="" disabled <%= !formData.favoriteContinent ? 'selected' : '' %>>Choose...</option>
+                <% continents.forEach((option) => { %>
+                  <option value="<%= option %>" <%= formData.favoriteContinent === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+              <div class="invalid-feedback">Select a continent.</div>
+            </div>
+          </div>
+          <button class="btn btn-primary w-100 mt-4" type="submit">Create account</button>
+        </form>
+        <p class="mt-3 mb-0 text-center small">Already registered? <a href="/login">Login here</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,34 +1,66 @@
-#Travel Journal App
-##A Node.js + Express application for authenticated travel journaling with MongoDB, Mongoose schemas, Passport authentication, and full CRUD operations for journals.
+# Travel Journal App
 
-Features
-User authentication using Passport and express-session
-Registration, login, and logout
-User profile fields stored in schema:
-username
-password (hashed by passport-local-mongoose)
-nationality
-travelStyle
-favoriteContinent
-Journal schema fields:
-destination (immutable after creation)
-arrivalDate
-departureDate
-experience
-rating (1 to 5)
-Bootstrap form validation on client side
-Server-side validation for date range and rating limits
-Journal access restricted to the logged-in owner
-EJS templating with reusable partials
-Travel style shown in top-right navbar after login
+A Node.js and Express travel journaling application with MongoDB, Mongoose schemas, Passport authentication, session management, and full CRUD functionality for travel journal entries.
 
-#Tech Stack
-Node.js
-Express
-MongoDB
-Mongoose
-Passport
-passport-local-mongoose
-express-session
-EJS
-Bootstrap 5
+## Features
+
+- User registration, login, and logout
+- Passport authentication with session support
+- Password hashing using `passport-local-mongoose`
+- Travel journal CRUD operations
+- Bootstrap client-side validation
+- Server-side validation for dates and ratings
+- Immutable destination field after journal creation
+- Logged-in user travel style shown in the top-right navbar
+- EJS templates with shared partials
+
+## Technologies Used
+
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- Passport
+- passport-local-mongoose
+- express-session
+- EJS
+- Bootstrap 5
+
+## Folder Structure
+
+```text
+SchemaModel/
+├── app.js
+├── server.js
+├── package.json
+├── .env.example
+├── .gitignore
+├── config/
+│   ├── choices.js
+│   └── passport.js
+├── models/
+│   ├── user.js
+│   └── journal.js
+├── routes/
+│   ├── auth.js
+│   └── journals.js
+├── views/
+│   ├── auth/
+│   │   ├── login.ejs
+│   │   └── register.ejs
+│   ├── journals/
+│   │   ├── _form.ejs
+│   │   ├── edit.ejs
+│   │   ├── index.ejs
+│   │   ├── new.ejs
+│   │   └── show.ejs
+│   ├── partials/
+│   │   ├── footer.ejs
+│   │   ├── head.ejs
+│   │   └── nav.ejs
+│   └── error.ejs
+└── public/
+    ├── css/
+    │   └── styles.css
+    └── js/
+        └── formValidation.js
